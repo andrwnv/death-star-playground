@@ -12,7 +12,6 @@ class Battery(IJsonSerializable):
 
         self.is_on = False
         self.alarm = False
-        self.durability = 100.0
         self.charge_level = 100.0
 
         self.capacitors = []
@@ -28,7 +27,6 @@ class Battery(IJsonSerializable):
     is_on: bool
     alarm: bool
 
-    durability: float
     charge_level: float
 
     capacitors: List[Capacitor]

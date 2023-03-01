@@ -53,19 +53,4 @@ class EnergySystemApiManager:
             return None
         return copy(self.__power_cells[name].battery)
 
-    def repair_colling_system(self, name: str, team_name: str) -> None:
-        pass
-
-    def repair_magnet_system(self, name: str, team_name: str) -> None:
-        pass
-
-    def repair_plasma_heater(self, name: str, team_name: str) -> None:
-        pass
-
-    def repair_vacuum_vessel(self, name: str, team_name: str) -> None:
-        pass
-
-    def repair_fuel_storage(self, name: str, team_name: str) -> None:
-        pass
-
     __power_cells: Dict[str, PowerCell]

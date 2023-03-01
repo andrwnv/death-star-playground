@@ -1,2 +1,3 @@
 from .energy_system_api_router import EnergySystemApiRouter
 from .repair_team_api_router import RepairTeamApiRouter
+from .events_websocket_router import EventWebSocketRouter

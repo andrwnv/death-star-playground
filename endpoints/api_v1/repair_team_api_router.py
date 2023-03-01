@@ -16,8 +16,8 @@ class RepairTeamApiRouter(APIRouter):
                            methods=['GET'], endpoint=self.get_team_info, tags=['Ремонтные бригады'], name='Получение информации о ремонтной бригаде')
         self.add_api_route(path='/start',
                            methods=['POST'], endpoint=self.send_team, tags=['Ремонтные бригады'], name='Отправка ремонтной бригаде на объект')
-        self.add_api_route(path='/stop',
-                           methods=['POST'], endpoint=self.send_team, response_model=None, tags=['Ремонтные бригады'], name='Отзыв ремонтной бригаде с объекта')
+        self.add_api_route(path='/stop/{team_name}',
+                           methods=['POST'], endpoint=self.back_team, response_model=None, tags=['Ремонтные бригады'], name='Отзыв ремонтной бригаде с объекта')
 
     async def get_all(self):
         try:
@@ -50,9 +50,29 @@ class RepairTeamApiRouter(APIRouter):
 
     async def send_team(self, dto: SendTeamDto = Body()):
         try:
-            result = self.__manager.send_team(dto.team_name, dto.location)
+            exec_result, reason = self.__manager.send_team(
+                dto.team_name, dto.cell_name, dto.location)
+
+            json_result = {
+                'execution_status': 'success' if exec_result else 'failed',
+            }
+            if reason:
+                json_result['reason'] = reason
+
+            return json_result
+
+        except HTTPException as ex:
+            raise HTTPException(status_code=ex.status_code)
+        except Exception as ex:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=ex)
+
+    async def back_team(self, team_name: str):
+        try:
+            exec_result = self.__manager.back_team(team_name)
+
             return {
-                'execution_status': result
+                'execution_status': 'success' if exec_result else 'failed'
             }
         except HTTPException as ex:
             raise HTTPException(status_code=ex.status_code)

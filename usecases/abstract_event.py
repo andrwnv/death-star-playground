@@ -28,7 +28,7 @@ class AbstractEvent(metaclass=abc.ABCMeta):
         return self._duration
 
     def is_ready(self) -> bool:
-        return self._start_time + self._duration >= datetime.fromtimestamp(time.time())
+        return self._start_time + self._duration <= datetime.now()
 
     def is_soon(self) -> timedelta:
         return datetime.fromtimestamp(time.time()) - self._start_time - self._duration

@@ -8,5 +8,7 @@ class LiquidStorage(IJsonSerializable):
         self.durability = 100.0
         self.liquid_level = 100.0
 
+    name: str
+
     durability: float
     liquid_level: float

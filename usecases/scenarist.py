@@ -33,7 +33,8 @@ class Scenarist:
             logger.error("Can't run scenarist! No active scenario for run!")
             raise RuntimeError
 
-        self.__event_executor.start()
+        if not self.__event_executor.is_running(): 
+            self.__event_executor.start()
         self.__action_executor = async_executor
 
         async_executor(self.__job)

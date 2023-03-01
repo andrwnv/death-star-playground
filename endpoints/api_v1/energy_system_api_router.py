@@ -166,15 +166,19 @@ class EnergySystemApiRouter(APIRouter):
         try:
             result = self.__manager.get_battery_state(
                 name=power_cell_name)
-            print(type(result))
+
             if result is None:
                 raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
 
-            return {
+            json_data = {
                 power_cell_name: {
                     "battery": result.to_json()
                 }
             }
+
+            json_data[power_cell_name]['battery']['durability'] = sum([capacitor.durability for capacitor in result.capacitors]) / len(result.capacitors)
+
+            return json_data
         except HTTPException as ex:
             raise HTTPException(status_code=ex.status_code)
         except Exception as ex:
