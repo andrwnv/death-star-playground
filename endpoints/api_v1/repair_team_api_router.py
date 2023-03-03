@@ -17,7 +17,7 @@ class RepairTeamApiRouter(APIRouter):
         self.add_api_route(path='/start',
                            methods=['POST'], endpoint=self.send_team, tags=['Ремонтные бригады'], name='Отправка ремонтной бригаде на объект')
         self.add_api_route(path='/stop/{team_name}',
-                           methods=['POST'], endpoint=self.back_team, response_model=None, tags=['Ремонтные бригады'], name='Отзыв ремонтной бригаде с объекта')
+                           methods=['POST'], endpoint=self.back_team, tags=['Ремонтные бригады'], name='Отзыв ремонтной бригаде с объекта')
 
     async def get_all(self):
         try:

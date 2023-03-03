@@ -57,7 +57,7 @@ class RepairTeamApiManager:
         if team.is_busy == False and team.current_location != Location.HOME:
             return None
 
-        while location.durability != 100.0 or team.is_busy:
+        while location.durability != 100.0 and team.is_busy:
             logger.info(f'Team {team.name} repair {location.name}')
 
             if location.durability + 1.25 >= 100.0:

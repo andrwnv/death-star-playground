@@ -6,9 +6,9 @@ class Capacitor(IJsonSerializable):
         self.name = name
 
         self.is_on = False
-        self.durability = 100.0
+        self.durability = 0.0
 
-        self.charge_level = 100.0
+        self.charge_level = 0.0
         self.rated_voltage = 0.0
     
     def start(self) -> None:

@@ -18,6 +18,9 @@ class Battery(IJsonSerializable):
         for i in range(65):
             self.capacitors.append(Capacitor(name=f'Capacitor-{uuid.uuid4()}'))
 
+        for i in range(20):
+            self.capacitors[i].durability = 100.0
+
     def start(self) -> None:
         self.is_on = True
 

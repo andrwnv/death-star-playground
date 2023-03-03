@@ -64,10 +64,6 @@ class EventExecutor(IEventExecutorManager):
                 except Exception as ex:
                     logger.warning(
                         f"Error while executing event. Exception: {ex}")
-            elif len(self.__events.keys()) == 0:
-                logger.info('Push five events!')
-                for i in range(5):
-                    self.push_event(event=TestEvent())
         except Exception as ex:
             logger.error(f"Internal error. Exception: {ex}")
 
