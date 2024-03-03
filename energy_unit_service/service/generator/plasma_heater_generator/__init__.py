@@ -1,0 +1,1 @@
+from .basic_plasma_heater_generator import DefaultGenerationStrategy

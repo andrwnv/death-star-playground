@@ -1,0 +1,137 @@
+syntax = "proto3";
+
+package energy_unit;
+
+service EnergyUnitService {
+  rpc GetBattery(StateRequest) returns (Battery) {}
+  rpc GetCoolingSystem(StateRequest) returns (CoolingSystem) {}
+  rpc GetMagnetSystem(StateRequest) returns (MagnetSystem) {}
+  rpc GetPlasmaHeater(StateRequest) returns (PlasmaHeater) {}
+  rpc GetVacuumVessel(StateRequest) returns (VacuumVessel) {}
+}
+
+enum EnergyCell {
+  ALPHA_CELL = 0;
+  THETA_CELL = 1;
+}
+
+message StateRequest {
+  EnergyCell energy_cell = 1;
+}
+
+/*
+  Battery
+*/
+message Capicator {
+  string name = 1;
+  bool is_on = 2;
+  float durability = 3;
+  float rated_voltage = 4;
+}
+
+message Battery {
+  string name = 1;
+  bool is_on = 2;
+  bool alarm_state = 3;
+  float charge_level = 4;
+  repeated Capicator capacitors = 5;
+}
+
+/*
+  Cooling system
+*/
+
+message Turbine {
+  string name = 1;
+  bool is_on = 2;
+  bool alarm_state = 3;
+  float durability = 4;
+  float rpm = 5;
+  float input_current = 6;
+  float input_voltage = 7;
+  float input_power = 8;
+}
+
+message LiquidStorage {
+  string name = 1;
+  float durability = 2;
+  float liquid_level = 3;
+}
+
+message LiquidCooler {
+  string name = 1;
+  bool is_on = 2;
+  bool alarm_state = 3;
+  float durability = 4;
+  LiquidStorage liquid_storage = 5;
+  repeated Turbine turbines = 6;
+}
+
+message CoolingSystem {
+  string name = 1;
+  bool is_on = 2;
+  bool alarm_state = 3;
+  float durability = 4;
+  repeated Turbine turbines = 5;
+  LiquidCooler liquid_cooler = 6;
+}
+
+/*
+  Magnet system
+*/
+
+message Inductor {
+  string name = 1;
+  bool is_on = 2;
+  float durability = 3;
+  float storable_energy = 4;
+  float electromotive_force = 5;
+  float starter_current = 6;
+  float output_current = 7;
+  float current_loss = 8;
+  float q_factor = 9;
+}
+
+message MagnetSystem {
+  string name = 1;
+  bool is_on = 2;
+  bool alarm_state = 3;
+  float durability = 4;
+  float induction = 5;
+  float temperature = 6;
+  float output_current = 7;
+  float voltage = 8;
+  repeated Inductor toroidal_inductors = 9;
+  repeated Inductor poloidal_inductors = 10;
+}
+
+/*
+  Plasma heater
+*/
+
+message PlasmaHeater {
+  string name = 1;
+  bool is_on = 2;
+  bool alarm_state = 3;
+  float durability = 4;
+  float temperature = 5;
+  float output_power_watt = 6;
+  float input_current = 7;
+  float input_voltage = 8;
+  float input_power = 9;
+}
+
+/*
+  Vacuum vessel
+*/
+
+message VacuumVessel {
+  string name = 1;
+  bool is_on = 2;
+  bool alarm_state = 3;
+  float durability = 4;
+  float pressure = 5;
+  float input_current = 6;
+  float input_voltage = 7;
+  float input_power = 8;
+}

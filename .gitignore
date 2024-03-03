@@ -3,3 +3,6 @@ venv
 __pycache__
 .vscode
 .fleet
+proto/*
+*/proto/*
+node_modules/

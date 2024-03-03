@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package atmosphere_unit;
+
+service AtmosphereUnitService {
+    rpc GetPressureStabilizer(StateRequest) returns (PressureStabilizer) {}
+    rpc GetTemperatureStabilizer(StateRequest) returns (TemperatureStabilizer) {}
+    rpc GetHumidityManager(StateRequest) returns (HumidityManager) {}
+}
+
+enum Device {
+    COMMAND_BRIDGE = 0;
+    ENGINEERING_COMPARTMENT = 1;
+    CREW_QUARTTERS = 2;
+    MEDICAL_BAY = 3;
+    CORRIDORS_AND_PASSAGEWAYS = 4;
+    CAFETERIA = 5;
+    RESEARCH_LABORATORY = 6;
+    ALPHA_STORAGE_AREA = 7;
+    SIGMA_STORAGE_AREA = 8;
+    LIBRARY_FACILITIES = 9;
+    RECREATION_ZONES = 10;
+    GARDES_AREA = 11;
+    WORKBENCHES = 12;
+    REST_CHAMBERS = 13;
+    LOUNGE_AREA = 14;
+}
+
+message StateRequest {
+    Device device = 1;
+}
+
+/*
+    PressureStabilizer
+*/
+message PressureStabilizer {
+    string name = 1;
+    bool is_on = 2;
+    float durability = 3;
+    bool is_suitable = 4;
+    float pressure = 5;
+    float CO2_volume = 6;
+    float O2_volume = 7;
+    float N2_volume = 8;
+    float other_volume = 9;
+}
+
+/*
+    HumidityManager
+*/
+message HumidityManager {
+    stirng name = 1;
+    bool is_on = 2;
+    float durability = 3;
+    float humidity = 4;
+}
+
+/*
+    TemperatureStabilizer
+*/
+message TemperatureStabilizer {
+    string name = 1;
+    bool is_on = 2;
+    float durability = 3;
+    float temperature = 4;
+}

@@ -1,0 +1,1 @@
+from .basic_magnet_generator import DefaultGenerationStrategy

@@ -20,34 +20,89 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
-    
+
     privileged: true
+
+    mem_limit: 300m
+    mem_reservation: 100m
+    cpus: 0.3
 
     networks:
       - appnet
 
-  web:
+  atmosphere-unit-service:
     build:
-      dockerfile: ./Dockerfile
-      context: .
+      context: ./atmosphere_unit_service
+      dockerfile: Dockerfile
 
     restart: on-failure
 
-    working_dir: /app
-    command: python3 main.py
     volumes:
-      - .:/app
+      - ./atmosphere_unit_service:/app
+
+    working_dir: /app
+    command: make run
     ports:
-      - "2024:2023"
+      - "2023:2023"
 
     depends_on:
       rabbitmq_service:
         condition: service_healthy
 
+    privileged: true
+
     networks:
       - appnet
 
+  energy-unit-service:
+    build:
+      context: ./energy_unit_service
+      dockerfile: Dockerfile
+
+    restart: on-failure
+
+    volumes:
+      - ./energy_unit_service:/app
+
+    working_dir: /app
+    command: make run
+    ports:
+      - "4040:4040"
+
+    depends_on:
+      rabbitmq_service:
+        condition: service_healthy
+
     privileged: true
+
+    networks:
+      - appnet
+
+  scenariste-service:
+    build:
+      context: ./scenarist_service
+      dockerfile: Dockerfile
+
+    restart: on-failure
+
+    volumes:
+      - ./scenarist_service:/app
+
+    working_dir: /app
+    command: make run
+    ports:
+      - "2024:2024"
+
+    depends_on:
+      rabbitmq_service:
+        condition: service_healthy
+      energy-unit-service:
+        condition: service_started
+
+    privileged: true
+
+    networks:
+      - appnet
 
 networks:
   appnet:

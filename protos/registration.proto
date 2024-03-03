@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package registration;
+
+service RegistrationService {
+  rpc RegisterUnit(RegisterRequest) returns (RegisterResponse) {}
+}
+
+enum RegistrationStatus {
+  SUCCESS = 0;
+  ALREADY_REGISTRED = 1;
+  FAILED = 2;
+}
+
+message RegisterRequest {
+  string name = 1;
+  string queue_address = 2;
+  string queue_port = 3;
+}
+
+message RegisterResponse {
+  RegistrationStatus status = 1;
+
+  optional string queue_address = 2;
+  optional string queue_port = 3;
+}

@@ -1,0 +1,11 @@
+http_addr: 0.0.0.0
+http_port: 2024
+
+grpc_addr: 0.0.0.0
+grpc_port: 4040
+
+event_queue_addr: rmq-host
+event_queue_port: 5672
+event_queue_username: admin
+event_queue_password: pass
+event_queue_name: scenarist_action_queue
